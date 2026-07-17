@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usman Abdullahi Usman | Portfolio</title>
+    <style>
+        /* --- Internal CSS --- */
+        :root {
+            --primary: #4A90E2;
+            --secondary: #f0f4f8;
+            --text-dark: #2c3e50;
+            --text-light: #7f8c8d;
+            --bg-white: #ffffff;
+            --shadow: 0 4px 6px rgba(0,0,0,0.1);
+            --radius: 12px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--secondary);
+            color: var(--text-dark);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: var(--bg-white);
+            padding: 1rem 2rem;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover, nav a.active {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        /* Main Content Area */
+        main {
+            flex: 1;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* Sections (Pages) - Hidden by default, shown via JS */
+        .page-section {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .page-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Page 1: Profile (Home) */
+        .profile-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            background: var(--bg-white);
+            padding: 3rem 2rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+
+        .profile-img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .profile-name {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-title {
+            color: var(--primary);
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        .profile-bio {
+            max-width: 600px;
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* Universal Card Layout for other pages */
+        .card {
+            background: var(--bg-white);
+            padding: 2rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+        }
+
+        .card h2 {
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-dark);
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .info-item {
+            background: var(--secondary);
+            padding: 1rem;
+            border-radius: 8px;
+        }
+
+        .info-item strong {
+            display: block;
+            color: var(--primary);
+            margin-bottom: 0.3rem;
+        }
+
+        /* Certificate Styling */
+        .certificate-box {
+            background: #eef6ff;
+            border: 2px dashed var(--primary);
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        .certificate-box h3 { color: var(--primary); margin-bottom: 0.5rem; }
+        .certificate-box p { color: var(--text-light); margin-bottom: 0.5rem; }
+
+        /* Button Styling */
+        .btn {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 0.6rem 1.5rem;
+            text-decoration: none;
+            border-radius: 20px;
+            font-weight: bold;
+            transition: transform 0.2s;
+        }
+        .btn:hover {
+            transform: scale(1.05);
+            background-color: #357abd;
+        }
+
+        /* Audio & Video Styling */
+        .media-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .media-container {
+            background: var(--secondary);
+            padding: 1rem;
+            border-radius: var(--radius);
+            text-align: center;
+        }
+
+        .media-container h3 {
+            margin-bottom: 1rem;
+        }
+
+        audio, video, iframe {
+            width: 100%;
+            border-radius: 8px;
+            background: #1a1a1a;
+        }
+
+        video {
+            aspect-ratio: 16/9;
+            object-fit: cover;
+        }
+
+        iframe {
+            aspect-ratio: 16/9;
+            border: none;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--text-dark);
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            margin-top: 2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            nav ul {
+                justify-content: center;
+                gap: 0.5rem;
+            }
+            nav a {
+                padding: 0.3rem 0.8rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header & Navigation -->
+    <header>
+        <div class="logo">Usman.dev</div>
+        <nav>
+            <ul>
+                <li><a href="#" onclick="showPage('home', this)">Home</a></li>
+                <li><a href="#" onclick="showPage('about', this)">About</a></li>
+                <li><a href="#" onclick="showPage('education', this)">Education</a></li>
+                <li><a href="#" onclick="showPage('skills', this)">Skills</a></li>
+                <li><a href="#" onclick="showPage('achievements', this)">Achievements</a></li>
+                <li><a href="#" onclick="showPage('youtube', this)">YouTube</a></li>
+                <li><a href="#" onclick="showPage('contact', this)">Contact</a></li>
+                <li><a href="#" onclick="showPage('audio', this)">Audio</a></li>
+                <li><a href="#" onclick="showPage('video', this)">Video</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content (10 Pages) -->
+    <main>
+        
+        <!-- PAGE 1: Home (Profile) -->
+        <section id="home" class="page-section active">
+            <div class="profile-container">
+                <!-- IMPORTANT: Rename your uploaded image to 'profile.jpg' and place it in the same folder -->
+                <img src="files/usman.jpg" alt="Usman Abdullahi Usman" class="profile-img" onerror="this.src='https://via.placeholder.com/200x200/4A90E2/ffffff?text=Usman'">
+                <h1 class="profile-name">Usman Abdullahi Usman</h1>
+                <div class="profile-title">Computer Science Student | Level 200</div>
+                <p class="profile-bio">
+                    Welcome to my personal portfolio! I am a passionate developer from Kano State, Nigeria, 
+                    currently pursuing my degree at Northwest University. I love building beautiful web experiences.
+                </p>
+            </div>
+        </section>
+
+        <!-- PAGE 2: About -->
+        <section id="about" class="page-section">
+            <div class="card">
+                <h2>About Me</h2>
+                <p>Hello! I am Usman Abdullahi Usman. I was born and raised in the historic city of Kano State. 
+                I have a deep passion for technology and how it can solve everyday problems.</p>
+                <p style="margin-top:1rem;">I am currently a Level 200 student at Northwest University, majoring in Computer Science. 
+                I am dedicated to learning new programming languages, web development, and software engineering principles.</p>
+            </div>
+        </section>
+
+        <!-- PAGE 3: Education -->
+        <section id="education" class="page-section">
+            <div class="card">
+                <h2>Education</h2>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <strong>Northwest University</strong>
+                        <span>B.Sc. Computer Science (Level 200)</span>
+                        <span style="color:var(--text-light); font-size:0.9rem;">2024 - Present</span>
+                    </div>
+                    <div class="info-item">
+                        <strong>National Diploma</strong>
+                        <span>Computer Science</span>
+                        <span style="color:var(--text-light); font-size:0.9rem;">Completed 2022</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PAGE 4: Skills -->
+        <section id="skills" class="page-section">
+            <div class="card">
+                <h2>Technical Skills</h2>
+                <div class="info-grid">
+                    <div class="info-item">HTML & CSS</div>
+                    <div class="info-item">JavaScript (Basics)</div>
+                    <div class="info-item">Python</div>
+                    <div class="info-item">C Programming</div>
+                    <div class="info-item">Problem Solving</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PAGE 5: Achievements (Previously Projects) -->
+        <section id="achievements" class="page-section">
+            <div class="card">
+                <h2>My Achievements</h2>
+                
+                <div class="info-grid" style="margin-bottom: 2rem;">
+                    <div class="info-item">
+                        <strong>🏆 Best Web Design Project</strong>
+                        <span style="color:var(--text-light);">Awarded for outstanding UI/UX design in Level 100.</span>
+                    </div>
+                    <div class="info-item">
+                        <strong>📜 FreeCodeCamp Certification</strong>
+                        <span style="color:var(--text-light);">Completed a 100-hour full-stack web development bootcamp.</span>
+                    </div>
+                </div>
+
+                <!-- Space for Certificate and Verify Link -->
+                <div class="certificate-box">
+                    <h3>Certificate of Completion</h3>
+                    <p><strong>Web Development Fundamentals</strong> (Issued by FreeCodeCamp)</p>
+                    <p style="font-size: 0.9rem; font-style: italic; margin-bottom: 1.5rem;">
+                        <img src="files/certificate.jpg" alt="Usman Abdullahi Usman">
+                    </p>
+                    <a href="#" class="btn">🔗 Verify Certificate</a>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- PAGE 6: YouTube Page (Previously Hobbies) -->
+        <section id="youtube" class="page-section">
+            <div class="card">
+                <h2>My YouTube Page</h2>
+                <p style="margin-bottom:1.5rem; color:var(--text-light);">
+                    Watch my coding tutorials, university vlogs, and tech reviews. 
+                    <a href="https://www.youtube.com" target="_blank" style="color:var(--primary); font-weight:bold;">Click here to go directly to YouTube</a>
+                </p>
+                
+                <div class="media-grid">
+                    <div class="media-container">
+                        <h3>Featured Video</h3>
+                        <!-- Replace the src below with your embedded YouTube video link -->
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/eJZFUEQebbI?si=ZQjMb1LoeXdR0Ygr" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        <p style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--text-light);">.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PAGE 7: Contact -->
+        <section id="contact" class="page-section">
+            <div class="card">
+                <h2>Contact Me</h2>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <strong>📍 Location</strong>
+                        Kano State, Nigeria
+                    </div>
+                    <div class="info-item">
+                        <strong>📧 Email</strong>
+                        usmanabdullahiusman00@gmail.com
+                    </div>
+                    <div class="info-item">
+                        <strong>📱 Phone</strong>
+                        +234 907 074 2513
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PAGE 8: Audio (Extra) -->
+        <section id="audio" class="page-section">
+            <div class="card">
+                <h2>Audio Page</h2>
+                <p style="margin-bottom:1.5rem; color:var(--text-light);">Listen to my favorite tracks or audio notes.</p>
+                <div class="media-grid">
+                    <div class="media-container">
+                        <h3>Little Moon Song</h3>
+                        <audio controls>
+                            <source src="files/MoonSong.mp3" type="audio/mpeg">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+                </div>
+                <p style="margin-top:1rem; font-style:italic; color:var(--text-light); font-size:0.9rem;"></p>
+            </div>
+        </section>
+
+        <!-- PAGE 9: Video (Extra) -->
+        <section id="video" class="page-section">
+            <div class="card">
+                <h2>Video Page</h2>
+                <p style="margin-bottom:1.5rem; color:var(--text-light);">A showcase of my projects or university life.</p>
+                <div class="media-grid">
+                    <div class="media-container">
+                        <h3>Life of a Computer Scientist</h3>
+                        <video controls poster="profile.jpg">
+                            <source src="files/Hardware.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                </div>
+                <p style="margin-top:1rem; font-style:italic; color:var(--text-light); font-size:0.9rem;"></p>
+            </div>
+        </section>
+
+        <!-- PAGE 10: Future Goals -->
+        <section id="future" class="page-section">
+            <div class="card">
+                <h2>Future Goals</h2>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <strong>Short Term</strong>
+                        <p>Master Full-Stack Web Development and contribute to open-source projects.</p>
+                    </div>
+                    <div class="info-item">
+                        <strong>Long Term</strong>
+                        <p>Build a tech startup that solves local problems in Kano State and beyond.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Usman Abdullahi Usman. All Rights Reserved.</p>
+    </footer>
+
+    <!-- JavaScript to Handle Navigation -->
+    <script>
+        function showPage(pageId, element) {
+            // 1. Hide all page sections
+            const sections = document.querySelectorAll('.page-section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // 2. Show the selected page
+            const target = document.getElementById(pageId);
+            if(target) {
+                target.classList.add('active');
+            }
+
+            // 3. Update active navigation link styling
+            const navLinks = document.querySelectorAll('nav a');
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+            });
+            if(element) {
+                element.classList.add('active');
+            }
+        }
+    </script>
+</body>
+</html>
